@@ -14,3 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+pre {
+  padding: 1rem;
+  background: #efefef;
+  overflow: hidden;
+}
