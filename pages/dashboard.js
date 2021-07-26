@@ -1,23 +1,8 @@
-import cookies from "next-cookies";
 import React, { useState, useEffect } from "react";
 import Userfront from "@userfront/react";
 import Navbar from "../components/navbar.js";
+import { getPropsFromAccessToken } from "../common/auth.js";
 import styles from "../styles/Dashboard.module.css";
-
-export async function getServerSideProps(ctx) {
-  const { [Userfront.store.accessTokenName]: accessToken } = cookies(ctx);
-  if (!accessToken) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: { isLoggedIn: !!accessToken },
-  };
-}
 
 const Dashboard = ({ isLoggedIn }) => {
   const [user, setUser] = useState({});
@@ -48,7 +33,7 @@ const Dashboard = ({ isLoggedIn }) => {
         </div>
         <div className={styles.data}>
           <p>
-            Data from restricted endpoint{" "}
+            Data from protected endpoint{" "}
             <span className={styles.code}>/api/data</span>
           </p>
           <button onClick={getData} className={styles.button}>
@@ -69,5 +54,9 @@ const Dashboard = ({ isLoggedIn }) => {
     </div>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  return getPropsFromAccessToken(ctx, { verify: true });
+}
 
 export default Dashboard;

@@ -1,7 +1,8 @@
 import Head from "next/head";
+import { getPropsFromAccessToken } from "../common/auth.js";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({ isLoggedIn }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -20,19 +21,30 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a href="/signup" className={styles.card}>
-            <h3>Sign up &rarr;</h3>
-            <p>Register an account.</p>
-          </a>
+          {!isLoggedIn && (
+            <a href="/signup" className={styles.card}>
+              <h3>Sign up &rarr;</h3>
+              <p>Register an account.</p>
+            </a>
+          )}
 
-          <a href="/login" className={styles.card}>
-            <h3>Log in &rarr;</h3>
-            <p>Log into your account.</p>
-          </a>
+          {!isLoggedIn && (
+            <a href="/login" className={styles.card}>
+              <h3>Log in &rarr;</h3>
+              <p>Log into your account.</p>
+            </a>
+          )}
 
-          <a href="/dashboard" className={styles.card}>
-            <h3>Dashboard &rarr;</h3>
-            <p>View your dashboard.</p>
+          {isLoggedIn && (
+            <a href="/dashboard" className={styles.card}>
+              <h3>Dashboard &rarr;</h3>
+              <p>View your dashboard.</p>
+            </a>
+          )}
+
+          <a href="/reset" className={styles.card}>
+            <h3>Reset &rarr;</h3>
+            <p>Reset your password.</p>
           </a>
         </div>
       </main>
@@ -49,4 +61,8 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  return getPropsFromAccessToken(ctx);
 }

@@ -1,18 +1,23 @@
 import React from "react";
 import Userfront from "@userfront/react";
+import { getPropsFromAccessToken } from "../common/auth.js";
 import Navbar from "../components/navbar.js";
 
 const LoginForm = Userfront.build({
   toolId: "alnkkd",
 });
 
-function Login() {
+function Login({ isLoggedIn }) {
   return (
     <div>
-      <Navbar />
+      <Navbar isLoggedIn={isLoggedIn} />
       <LoginForm />
     </div>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  return getPropsFromAccessToken(ctx);
 }
 
 export default Login;
