@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Userfront from "@userfront/react";
 import Navbar from "../components/navbar.js";
 import { getPropsFromAccessToken } from "../common/auth.js";

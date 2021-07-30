@@ -11,11 +11,11 @@ aWy+i4YieTRRKnbyT7fzDPiZupkcg2jwVF49CtyB9UWtE/+/BAKtJtBLfdZ5X1dK
 RqesE10ysVdGxeyeRpyFltEfF5QWAzn99wIDAQAB
 -----END RSA PUBLIC KEY-----`;
 
-export async function getPropsFromAccessToken(ctx, { restricted } = {}) {
+export async function getPropsFromAccessToken(ctx, { verify } = {}) {
   try {
     const { [Userfront.store.accessTokenName]: accessToken } = cookies(ctx);
     const isLoggedIn = !!accessToken;
-    if (restricted) {
+    if (verify) {
       const verifiedToken = jwt.verify(accessToken, publicKey);
 
       return {

@@ -1,4 +1,3 @@
-import React from "react";
 import Userfront from "@userfront/react";
 import { getPropsFromAccessToken } from "../common/auth.js";
 import Navbar from "../components/navbar.js";
