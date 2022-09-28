@@ -13,7 +13,7 @@ RqesE10ysVdGxeyeRpyFltEfF5QWAzn99wIDAQAB
 
 export async function getPropsFromAccessToken(ctx, { verify } = {}) {
   try {
-    const { [Userfront.store.accessTokenName]: accessToken } = cookies(ctx);
+    const { [Userfront.tokens.accessTokenName]: accessToken } = cookies(ctx);
     const isLoggedIn = !!accessToken;
     if (verify) {
       const verifiedToken = jwt.verify(accessToken, publicKey);
